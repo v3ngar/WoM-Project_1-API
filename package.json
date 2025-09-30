@@ -21,14 +21,5 @@
     "grep": "^0.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Haahns/wom24.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Haahns/wom24/issues"
-  },
-  "homepage": "https://github.com/Haahns/wom24#readme",
-  "description": ""
+  }
 }
