@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  notes-api:
+    build:
+      context: .
+    env_file: .env         # PORT, DATABASE_URL, JWT_SECRET (samma secret som login)
+    ports:
+      - "3002:3002"
+    restart: unless-stopped
