@@ -7,21 +7,30 @@ const app = express()
 const PORT = process.env.PORT || 3002
 
 //CORS tillåtna origins
-const allowed = [
-        'http://127.0.0.1:5501',
-        'http://localhost:5501',
-        'http://localhost:8080',
-        'https://cgi.arcada.fi',
-    ]
+const allowedLocal = new Set([
+  'http://127.0.0.1:5501',
+  'http://localhost:5501',
+  'http://localhost:8080',
+])
+
+function isAllowedOrigin(origin) {
+  if (!origin) return true // t.ex. curl
+  try {
+    const u = new URL(origin)
+    const h = u.hostname
+    //Tillåt Arcada-fronten (byt/utöka vid behov)
+    if (h === 'people.arcada.fi' || h.endsWith('.arcada.fi')) return true
+    //Tillåt lokala dev-origins
+    if (allowedLocal.has(origin)) return true
+    return false
+  } catch { return false }
+}
 
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin || allowed.includes(origin)) return cb(null, true)
-    return cb(new Error('CORS blocked'), false)
-  },
+  origin: (origin, cb) => cb(null, isAllowedOrigin(origin)),
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
-  credentials: false //true bara om man använder cookies
+    credentials: false //true bara om man använder cookies; med JWT räcker false
 }))
 
 app.options('*', cors())
