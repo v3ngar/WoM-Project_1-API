@@ -10,7 +10,8 @@ const PORT = process.env.PORT || 3002
 const allowed = [
         'http://127.0.0.1:5501',
         'http://localhost:5501',
-        'http://localhost:8080', 
+        'http://localhost:8080',
+        'https://cgi.arcada.fi',
     ]
 
 app.use(cors({
