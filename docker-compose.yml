@@ -1,10 +1,14 @@
 version: "3.9"
 
 services:
-  notes-api:
+  login-api:
+    container_name: login-api
     build:
       context: .
-    env_file: .env         # PORT, DATABASE_URL, JWT_SECRET (samma secret som login)
+      dockerfile: Dockerfile
+    env_file: .env # PORT, DATABASE_URL, JWT_SECRET
+    enviroment:
+      - PORT=3002 #Ifall port saknas från .env
     ports:
       - "3002:3002"
     restart: unless-stopped
