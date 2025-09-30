@@ -14,25 +14,21 @@ const allowedLocal = new Set([
 ])
 
 function isAllowedOrigin(origin) {
-  if (!origin) return true // t.ex. curl
+  if (!origin) return true
   try {
-    const u = new URL(origin)
-    const h = u.hostname
-    //Tillåt Arcada-fronten (byt/utöka vid behov)
-    if (h === 'people.arcada.fi' || h.endsWith('.arcada.fi')) return true
-    //Tillåt lokala dev-origins
+    const host = new URL(origin).hostname
+    if (host === 'people.arcada.fi' || host.endsWith('.arcada.fi')) return true
     if (allowedLocal.has(origin)) return true
     return false
   } catch { return false }
 }
 
 app.use(cors({
-  origin: (origin, cb) => cb(null, isAllowedOrigin(origin)),
+  origin: (o, cb) => cb(null, isAllowedOrigin(o)),
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
-    credentials: false //true bara om man använder cookies; med JWT räcker false
+  credentials: false
 }))
-
 app.options('*', cors())
 
 app.use(express.json())
