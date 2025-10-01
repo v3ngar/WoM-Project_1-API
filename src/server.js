@@ -7,8 +7,6 @@ const app = express()
 const PORT = process.env.PORT || 3002
 
 //CORS tillåtna origins
-const cors = require('cors')
-
 const ALLOW = new Set([
   'https://people.arcada.fi',   //live-frontend
   'http://127.0.0.1:5501',      //lokalt 
