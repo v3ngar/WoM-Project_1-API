@@ -6,7 +6,8 @@ require('dotenv').config()
 const app = express()
 const PORT = process.env.PORT || 3002
 
-app.use(cors({origin: '*'})) //tillåter alla origins
+app.use(cors())
+app.options('*', cors()) // preflight
 
 app.use(express.json())
 app.use(morgan('dev'))
