@@ -6,7 +6,7 @@ require('dotenv').config()
 const app = express()
 const PORT = process.env.PORT || 3002
 
-// Enable CORS for all routes
+// Cors för alla rutter
 app.use(cors())
 app.options('*', cors()) // Enable preflight for all routes
 
