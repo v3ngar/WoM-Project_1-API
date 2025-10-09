@@ -3,6 +3,7 @@ const router = express.Router()
 const { PrismaClient } = require('@prisma/client')
 const authorize = require('../middleware/auth')
 
+
 const prisma = new PrismaClient()
 
 router.get('/', authorize, async (req, res) => {

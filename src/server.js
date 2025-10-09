@@ -1,14 +1,14 @@
 const express = require('express')
-//const cors = require('cors')
+const cors = require('cors')
 const morgan = require('morgan')
 require('dotenv').config()
 
 const app = express()
 const PORT = process.env.PORT || 3002
 
-
-//app.use(cors())
-//app.options('*', cors()) // preflight
+// Enable CORS for all routes
+app.use(cors())
+app.options('*', cors()) // Enable preflight for all routes
 
 app.use(express.json())
 app.use(morgan('dev'))
