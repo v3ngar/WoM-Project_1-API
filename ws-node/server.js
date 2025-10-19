@@ -83,10 +83,7 @@ wss.on('connection', (ws, req) => {
     }));
 
     ws.on('message', (message) => {
-        //console.log(`Message from ${ws.userName} (${ws.userId}):`, String(message));
-        
-        // BUG: This sends the message back to ALL of the user's connections, including the sender
-        // SOLUTION: Filter out the sender or only send to other connections
+        //Funktionalitet för att bara skcika till samma användare
         const userSockets = userConnections.get(ws.userId);
         if (userSockets) {
             userSockets.forEach(client => {
@@ -108,12 +105,12 @@ wss.on('connection', (ws, req) => {
     ws.on('close', () => {
         console.log(`User ${ws.userName} disconnected`);
         
-        // Remove this connection from the user's connection set
+        // Kapa uppkoppling
         const userSockets = userConnections.get(ws.userId);
         if (userSockets) {
             userSockets.delete(ws);
             
-            // If no more connections for this user, remove the user entry
+            // Om inga flera uppkopplingar, kapa
             if (userSockets.size === 0) {
                 userConnections.delete(ws.userId);
                 console.log(`All connections closed for user ${ws.userName}`);
